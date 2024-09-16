@@ -5,7 +5,8 @@
       "@/app/*":["./src/app/*"],
       "@/services/*":["./src/services/*"],
       "@/common/*" : ["./src/common/*"],
-      "@/hooks/*":["./src/hooks/*"]
+      "@/hooks/*":["./src/hooks/*"],
+      "@/utils/*":["./src/utils/*"]
     }
   }
 }

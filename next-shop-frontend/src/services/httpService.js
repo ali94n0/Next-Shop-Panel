@@ -2,7 +2,7 @@ const { default: axios } = require("axios");
 
 const instance = axios.create({
 	baseURL: process.env.NEXT_PUBLIC_API_URL,
-	withCredentials: true,
+	withCredentials: true, // send HttpOnly cookies
 });
 
 export const http = {
@@ -13,12 +13,26 @@ export const http = {
 	patch: instance.patch,
 };
 
-axios.interceptors.request.use(
+instance.interceptors.request.use(
 	(req) => req,
 	(error) => Promise.reject(error),
 );
 
-axios.interceptors.response.use(
+instance.interceptors.response.use(
 	(res) => res,
-	(error) => Promise.reject(error),
+	async (error) => {
+		const originalConfig = error.config;
+		if (error.response.status === 401 && !originalConfig._retry) {
+			originalConfig._retry = true; //only one time run
+			try {
+				const data = await http
+					.get("/user/refresh-token")
+					.then((res) => res.data);
+				if (data) instance(originalConfig); // request send again to api with new Tokens
+			} catch (refreshError) {
+				return Promise.reject(refreshError);
+			}
+		}
+		return Promise.reject(error);
+	},
 );
