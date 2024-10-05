@@ -1,3 +1,5 @@
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -42,16 +44,16 @@
   direction: ltr;
 }
   .textField__style {
-    @apply w-full py-1 px-2 sm:py-1.5 sm:px-3 text-secondary-500 text-xs sm:text-sm font-light rounded-md bg-secondary-0 outline-none border border-secondary-50/50 focus:shadow-input-focus focus:outline-none focus:border-primary-100 transition-all duration-300 ease-in-out;
+    @apply w-full py-1 px-2 sm:py-1.5 sm:px-3 text-secondary-500 text-xs sm:text-sm !font-light rounded-md bg-secondary-0 outline-none border border-secondary-50/50 focus:shadow-input-focus focus:outline-none focus:border-primary-100 transition-all duration-300 ease-in-out;
   }
   .btn{
-    @apply   rounded-md  font-bold text-sm sm:text-md transition-all duration-300 ease-in-out
+    @apply rounded-md font-bold text-sm sm:text-md transition-all duration-300 ease-in-out flex items-center justify-center
   }
   .btn__primary{
     @apply bg-primary-700 py-1 px-2 sm:py-1.5 sm:px-3 text-white hover:bg-primary-900 disabled:cursor-not-allowed disabled:bg-secondary-50/50
   }
   .btn__secondary{
-    @apply border border-current font-normal py-1 px-2 text-xs
+    @apply border border-current font-normal py-1.5 px-3 text-xs
   }
 }
 
@@ -64,4 +66,21 @@ body {
   min-height: 100vh;
   user-select: none;
   background-color: var(--background-app-rgb);
+}
+
+.rti--container {
+  border: 1px solid rgba(223, 223, 229, 0.50) !important;
+    --rti-bg: var(--color-secondary-0) !important;
+    --rti-border: none !important;
+    --rti-main: "#3182ce",
+    --rti-radius: "0.375rem",
+    --rti-s: "0.5rem",
+    /* spacing */
+    --rti-tag: "#edf2f7",
+    --rti-tag-remove: "#e53e3e",
+}
+.css-13cymwt-control{
+  border:none !important;
+  margin: 0px !important;
+  color: var(--color-secondary-500);
 }

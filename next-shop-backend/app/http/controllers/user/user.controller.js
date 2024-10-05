@@ -162,7 +162,7 @@ class userAuthController extends Controller {
 	async completeProfile(req, res) {
 		await completeProfileSchema.validateAsync(req.body);
 		const { user } = req;
-		const { name, email } = req.body;
+		const { name, email, role } = req.body;
 
 		if (!user.isVerifiedPhoneNumber)
 			throw createError.Forbidden("شماره موبایل خود را تایید کنید.");
@@ -176,7 +176,7 @@ class userAuthController extends Controller {
 
 		const updatedUser = await UserModel.findOneAndUpdate(
 			{ _id: user._id },
-			{ $set: { name, email, isActive: true } },
+			{ $set: { name, email, role, isActive: true } },
 			{ new: true },
 		);
 		// await setAuthCookie(res, updatedUser);

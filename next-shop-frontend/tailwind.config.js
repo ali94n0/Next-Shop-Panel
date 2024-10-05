@@ -69,7 +69,16 @@ module.exports = {
 			boxShadow: {
 				"input-focus": "0 12px 24px -8px rgb(var(--color-primary-300))",
 			},
+			gridTemplateColumns: {
+				15: "repeat(15, minmax(0, 1fr))",
+			},
+			gridColumn: {
+				"span-14": "span 14 / span 14",
+			},
 		},
 	},
-	plugins: [],
+	plugins: [
+		require("@tailwindcss/forms"),
+		// ...
+	],
 };

@@ -1,7 +1,7 @@
-import "./globals.css";
+import "../globals.css";
 import { vazirFont } from "@/constants/localFonts";
 import Header from "@/app/Header.jsx";
-import Providers from "./Providers";
+import Providers from "../Providers";
 import { Toaster } from "react-hot-toast";
 
 export const metadata = {

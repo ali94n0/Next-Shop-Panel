@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineBackspace, HiOutlinePencilAlt } from "react-icons/hi";
 import OtpInput from 'react-otp-input';
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const routesByRoles = {
     "USER": "profile",
@@ -15,12 +15,14 @@ const routesByRoles = {
 
 
 
-const resendTime = 10
+const resendTime = 90
 function CheckOtpForm({responseData,onStep,onResendOtp}) {
     const [otp, setOtp] = useState('');
     const [time, setTime] = useState(responseData.expiresIn / 1000 || resendTime)
     const {mutate:checkOtp,isPending:isCheckingOtp}=useCheckOtp()
     const router = useRouter()
+    const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect');
 
     useEffect(() => {
         const timer = time > 0 && setInterval(() => {
@@ -35,13 +37,13 @@ function CheckOtpForm({responseData,onStep,onResendOtp}) {
     const handleCheckOtp = async () => {
         try {
             await checkOtp({ phoneNumber: responseData.phoneNumber.toString(), otp }, {
-                onSuccess: ({data:{user},statusCode}) => {
+                onSuccess: ({ data: { user }, statusCode }) => {
                     if (statusCode === 200) {
                         if (!user.isActive) {
-                            router.push("/complete-profile")
+                            router.push(redirect ? `/complete-profile?redirect=${redirect}` : "/complete-profile")
                         }
                         else {
-                            router.push(`/${routesByRoles[user.role]}`)
+                            router.push(redirect ? redirect : `/${routesByRoles[user.role]}`)
                         }
                     }
                     
